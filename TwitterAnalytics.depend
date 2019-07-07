@@ -5,12 +5,15 @@
 	<string.h>
 	<strings.h>
 
-1562459959 source:d:\desktop\trabalho final ed\main.c
+1562503850 source:d:\desktop\trabalho final ed\main.c
+	<stdlib.h>
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 	<string.h>
-	"DataStructs/ordered_list.h"
+	<strings.h>
+	"DataStructs/retweets_ordered_list.h"
+	"DataStructs/occurrence_ordered_list.h"
 	"DataStructs/tweets.h"
 
 1562449075 d:\desktop\trabalho final ed\datastructs\tweets.h
@@ -18,7 +21,7 @@
 	<stdlib.h>
 	<string.h>
 
-1562460495 source:d:\desktop\trabalho final ed\datastructs\ordered_list.c
+1562464093 source:d:\desktop\trabalho final ed\datastructs\ordered_list.c
 	<stdlib.h>
 	<stdio.h>
 	<stdlib.h>
@@ -31,4 +34,26 @@
 	"tweets.h"
 
 1562461468 d:\desktop\trabalho final ed\datastructs\ordered_list.h
+
+1562468801 d:\desktop\trabalho final ed\datastructs\occurrence_ordered_list.h
+
+1562468820 source:d:\desktop\trabalho final ed\datastructs\occurrence_ordered_list.c
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	<strings.h>
+	"occurrence_ordered_list.h"
+
+1562503883 source:d:\desktop\trabalho final ed\datastructs\retweets_ordered_list.c
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	<strings.h>
+	"retweets_ordered_list.h"
+
+1562470822 d:\desktop\trabalho final ed\datastructs\retweets_ordered_list.h
 

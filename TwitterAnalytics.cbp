@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters='&quot;D:\Desktop\Trabalho Final ED\bin\Debug\entrada.txt&quot; &quot;D:\Desktop\Trabalho Final ED\bin\Debug\operacoes.txt&quot; &quot;D:\Desktop\Trabalho Final ED\bin\Debug\saida.txt&quot;' />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -31,10 +32,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="DataStructs/ordered_list.c">
+		<Unit filename="DataStructs/occurrence_ordered_list.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="DataStructs/ordered_list.h" />
+		<Unit filename="DataStructs/occurrence_ordered_list.h" />
 		<Unit filename="DataStructs/tweets.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -7,21 +7,21 @@
 
 #ifndef ORDERED_LIST_H
 #define ORDERED_LIST_H
-#include "ordered_list.h"
+#include "occurrence_ordered_list.h"
 #endif
 
 /** \brief Metodo que inicializa a lista alocando endereço de memória
  * \param *ptLista - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
 */
-PtNo* initializeList(PtNo *ptNo){
-  ptNo = (PtNo *) malloc(sizeof(PtNo));
+PtNo_O* initializeList(PtNo_O *ptNo){
+  ptNo = (PtNo_O *) malloc(sizeof(PtNo_O));
   return ptNo;
 }
 
 
-PtNo* selectList(PtNo *ptNo, char *content){
+PtNo_O* selectList(PtNo_O *ptNo, char *content){
   if (ptNo != NULL){
-    PtNo *aux = ptNo;
+    PtNo_O *aux = ptNo;
 
     while (aux != NULL){
       if (strcmp(aux->content, content) == 0){
@@ -33,25 +33,25 @@ PtNo* selectList(PtNo *ptNo, char *content){
   return NULL;
 }
 
-PtNo* insertList(PtNo *ptNo, char *content){
-    PtNo *Pt = ptNo;  //variavel auxiliar.
-    PtNo *aux = NULL;
-    PtNo *temp = NULL;
+PtNo_O* insertList(PtNo_O *ptNo, char *content){
+    PtNo_O *Pt = ptNo;  //variavel auxiliar.
+    PtNo_O *aux = NULL;
+    PtNo_O *temp = NULL;
 
     if(ptNo == NULL)  //se a lista estiver vazia
     {
-        Pt = (PtNo*) malloc(sizeof(PtNo));  // cria nova lista
+        Pt = (PtNo_O*) malloc(sizeof(PtNo_O));  // cria nova lista
         strcpy(Pt->content, content);       // copia o conteudo para o conteudo da lista
-        Pt->ocurrencies = 1;                // com 1 ocorrencia
+        Pt->occurrences = 1;                // com 1 ocorrencia
         Pt->prev = NULL;                    // sem anterior
         Pt->next = NULL;                    // e sem posteior
         ptNo = Pt;
 
         return ptNo;
     } else {
-        Pt = (PtNo*) malloc(sizeof(PtNo));      // Novo item
+        Pt = (PtNo_O*) malloc(sizeof(PtNo_O));      // Novo item
         strcpy(Pt->content, content);
-        Pt->ocurrencies = 1;
+        Pt->occurrences = 1;
         aux = ptNo;
         while(aux->next != NULL) {               // Busca o fim
             aux = aux->next;
@@ -61,7 +61,7 @@ PtNo* insertList(PtNo *ptNo, char *content){
         Pt->next = NULL;
 
         // Agora atualiza a posicao do nodo.
-        while(Pt->prev != NULL && (Pt->ocurrencies > Pt->prev->ocurrencies || (Pt->ocurrencies == Pt->prev->ocurrencies && strcasecmp(Pt->content, Pt->prev->content) < 0))) {
+        while(Pt->prev != NULL && (Pt->occurrences > Pt->prev->occurrences || (Pt->occurrences == Pt->prev->occurrences && strcasecmp(Pt->content, Pt->prev->content) < 0))) {
             temp = Pt->prev->prev;
             if (Pt->prev->prev != NULL){
                 Pt->prev->prev->next = Pt;
@@ -75,7 +75,7 @@ PtNo* insertList(PtNo *ptNo, char *content){
             Pt->next = Pt->prev;
             Pt->prev = temp;
         }
-        if(Pt->next == NULL)
+        if(Pt->prev == NULL)
             ptNo = Pt;
     }
 
@@ -88,11 +88,11 @@ PtNo* insertList(PtNo *ptNo, char *content){
  * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
  * \param *content - Texto que sera adicionado uma ocorrencia na lista
 */
-PtNo* ocurrence(PtNo *ptNo, char *content) 
+PtNo_O* occurrence(PtNo_O *ptNo, char *content)
 {
-    PtNo *Pt = selectList(ptNo, content);  //variavel auxiliar.
-    PtNo *aux = NULL;
-    PtNo *temp = NULL;
+    PtNo_O *Pt = selectList(ptNo, content);  //variavel auxiliar.
+    PtNo_O *aux = NULL;
+    PtNo_O *temp = NULL;
     if(Pt == NULL)  // Caso nao tenha sido encontrado o elemento na lista, insere-o
     {
         ptNo = insertList(ptNo, content);
@@ -101,8 +101,8 @@ PtNo* ocurrence(PtNo *ptNo, char *content)
     {
         if (strcasecmp(Pt->content, content) == 0)
         {
-            Pt->ocurrencies++;
-            while(Pt->prev != NULL &&(Pt->ocurrencies > Pt->prev->ocurrencies || (Pt->ocurrencies == Pt->prev->ocurrencies && strcasecmp(Pt->content, Pt->prev->content) < 0)))
+            Pt->occurrences++;
+            while(Pt->prev != NULL &&(Pt->occurrences > Pt->prev->occurrences || (Pt->occurrences == Pt->prev->occurrences && strcasecmp(Pt->content, Pt->prev->content) < 0)))
             {
                 temp = Pt->prev->prev;
                 if(Pt->prev->prev != NULL){
@@ -126,7 +126,7 @@ PtNo* ocurrence(PtNo *ptNo, char *content)
 
 
 
-PtNo* removeList(PtNo *ptNo, char *hashtag){
+PtNo_O* removeList(PtNo_O *ptNo, char *hashtag){
   /* TODO */
   return NULL;
 }
@@ -136,11 +136,11 @@ PtNo* removeList(PtNo *ptNo, char *hashtag){
  * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
  * \return Retorna um ponteiro para a lista com todos os laços destruidos e os elementos liberados da memória
 */
-PtNo* destroyList(PtNo *ptNo){
+PtNo_O* destroyList(PtNo_O *ptNo){
     if (ptNo != NULL)             // Verifica se a lista é nula para evitar erros
     {
-        PtNo *aux1 = ptNo;   // auxiliar que recebe a primeira posição da lista
-        PtNo *aux2;
+        PtNo_O *aux1 = ptNo;   // auxiliar que recebe a primeira posição da lista
+        PtNo_O *aux2;
 
         while (aux1 != NULL);        // enquanto não chegar ao fim da lista
         {
@@ -155,8 +155,8 @@ PtNo* destroyList(PtNo *ptNo){
 
 
 /* Auxiliares */
-void showList(PtNo *ptNo){
-    PtNo *aux;
+void showList(PtNo_O *ptNo){
+    PtNo_O *aux;
     aux = ptNo;
 
     printf("\n----- LISTA -----\n");
@@ -165,7 +165,7 @@ void showList(PtNo *ptNo){
     {
         while (aux != NULL)
         {
-            printf("%s: %d\n", aux->content, aux->ocurrencies);
+            printf("%s: %d\n", aux->content, aux->occurrences);
             aux = aux->next;
         }
     }

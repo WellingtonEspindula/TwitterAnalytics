@@ -4,18 +4,27 @@ HEADER
 
 */
 
+#ifndef BASE_LIBS_H
+#define BASE_LIBS_H
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include "DataStructs/ordered_list.h"
+#include <strings.h>
+#endif
+
+#include "DataStructs/retweets_ordered_list.h"
+#include "DataStructs/occurrence_ordered_list.h"
 #include "DataStructs/tweets.h"
 
 void initializeOperations(FILE *operationsFile);
 void readEntryFile(FILE *entryFile);
 
-void processOpA(PtNo **hashtagTopList, Tweet tt);
-void processOpB(PtNo **ativosTopList, Tweet tt);
+void processOpA(PtNo_O **hashtagTopList, Tweet tt);
+void processOpB(PtNo_O **ativosTopList, Tweet tt);
+void processOpC(PtNo_R **retweetsTopList, Tweet tt);
+void processOpD(PtNo_O **ativosTopList, Tweet tt);
 
 
 int LIMIT_OP_A = -1;
@@ -54,15 +63,15 @@ int main(int argc, char ** argv){
 
 
         // HashtagTL *hashtagTopList;
-        // hashtagTopList = hashtagOcurrence(hashtagTopList, "#abc");
+        // hashtagTopList = hashtagoccurrence(hashtagTopList, "#abc");
         // showHTL(hashtagTopList);
-        // hashtagTopList = hashtagOcurrence(hashtagTopList, "#abd");
+        // hashtagTopList = hashtagoccurrence(hashtagTopList, "#abd");
         // showHTL(hashtagTopList);
-        // hashtagTopList = hashtagOcurrence(hashtagTopList, "#ad");
+        // hashtagTopList = hashtagoccurrence(hashtagTopList, "#ad");
         // showHTL(hashtagTopList);
-        // hashtagTopList = hashtagOcurrence(hashtagTopList, "#abcd");
+        // hashtagTopList = hashtagoccurrence(hashtagTopList, "#abcd");
         // showHTL(hashtagTopList);
-        // hashtagTopList = hashtagOcurrence(hashtagTopList, "#abc");
+        // hashtagTopList = hashtagoccurrence(hashtagTopList, "#abc");
         // showHTL(hashtagTopList);
 
         // hashtagTopList = destroyHTL(hashtagTopList);
@@ -153,8 +162,11 @@ void initializeOperations(FILE *operationsFile){
 void readEntryFile(FILE *entryFile){
     char line[500];
 
-    PtNo *hashtagTopList = NULL;
-    PtNo *ativosTopList = NULL;
+    PtNo_O *hashtagTopList = NULL;
+    PtNo_O *ativosTopList = NULL;
+    PtNo_R *retweetsTopList = NULL;
+    PtNo_O *mentionTopList = NULL;
+    PtNo_R *moreInfluentialTopList = NULL;
 
     while (fgets(line, 500, entryFile) != NULL) {
         Tweet tt = readTwitte(line);
@@ -163,6 +175,15 @@ void readEntryFile(FILE *entryFile){
         }
         if (LIMIT_OP_B != -1){
             processOpB(&ativosTopList, tt);
+        }
+        if (LIMIT_OP_C != -1){
+            processOpC(&retweetsTopList, tt);
+        }
+        if (LIMIT_OP_D != -1){
+            processOpD(&mentionTopList, tt);
+        }
+        if (LIMIT_OP_E != -1){
+            processOpD(&moreInfluentialTopList, tt);
         }
 
 
@@ -175,9 +196,12 @@ void readEntryFile(FILE *entryFile){
     // destroyList(NULL);
     showList(hashtagTopList);
     showList(ativosTopList);
+    showRetweetsList(retweetsTopList);
+    showList(mentionTopList);
+    showRetweetsList(moreInfluentialTopList);
 }
 
-void processOpA(PtNo **hashtagTopList, Tweet tt){
+void processOpA(PtNo_O **hashtagTopList, Tweet tt){
     char hashtag[280];      // guarda uma hashtag
     char *ptHashtag;    // Aponta para sequencia de caracteres a partir de '#'
     char *rest = NULL;      // armazena o "resto" apos a hashtag encontrada
@@ -189,7 +213,7 @@ void processOpA(PtNo **hashtagTopList, Tweet tt){
         token = strtok(ptHashtag, " ");     // pega da hashtag ate o ' ' e o armazena
         strcpy(hashtag, token);             // copia o token armazenado para hashtag
         rest = strtok(NULL, "");            // copia o resto da frase para rest
-        *hashtagTopList = ocurrence(*hashtagTopList, hashtag);   // indica que houve uma ocorrendia de hashtag
+        *hashtagTopList = occurrence(*hashtagTopList, hashtag);   // indica que houve uma ocorrendia de hashtag
         // showList(*hashtagTopList);   // mostra lista
     }
     // aqui comeca o loop de encontrar outras hashtags no texto do twitte
@@ -199,13 +223,48 @@ void processOpA(PtNo **hashtagTopList, Tweet tt){
             token = strtok(ptHashtag, " ");
             strcpy(hashtag, token);
             rest = strtok(NULL, "");
-            *hashtagTopList = ocurrence(*hashtagTopList, hashtag);
+            *hashtagTopList = occurrence(*hashtagTopList, hashtag);
             // showList(*hashtagTopList);
         }
     }
 }
 
-void processOpB(PtNo **ativosTopList, Tweet tt){
-    *ativosTopList = ocurrence(*ativosTopList, tt.user);
-    // showList(*ativosTopList);
+void processOpB(PtNo_O **ativosTopList, Tweet tt){
+    *ativosTopList = occurrence(*ativosTopList, tt.user);
+}
+
+void processOpC(PtNo_R **retweetsTopList, Tweet tt){
+    *retweetsTopList = insertRetweetsList(*retweetsTopList, tt.text, tt.rtCount);
+}
+
+void processOpD(PtNo_O **mentionTopList, Tweet tt){
+    char user[280];      // guarda o user mencionado
+    char *ptUserMentioned;    // Aponta para sequencia de caracteres a partir de '@'
+    char *rest = NULL;      // armazena o "resto" apos a hashtag encontrada
+    char *token = NULL;     // saida do strtok
+
+    // Primeira vez que verifica se tem um '@' e o captura, copiando-o ate o ' '
+    ptUserMentioned = strchr(tt.text, '@');   // armazena texto de primeira hashtag em diante
+    if (ptUserMentioned != NULL){                 // caso exista uma hashtag
+        token = strtok(ptUserMentioned, " ");     // pega da hashtag ate o ' ' e o armazena
+        strcpy(user, token);             // copia o token armazenado para hashtag
+        rest = strtok(NULL, "");            // copia o resto da frase para rest
+        *mentionTopList = occurrence(*mentionTopList, user);   // indica que houve uma ocorrendia de hashtag
+        // showList(*hashtagTopList);   // mostra lista
+    }
+    // aqui comeca o loop de encontrar outros usuarios mencionados no texto do twitte
+    while ((ptUserMentioned != NULL) && (rest != '\0')){
+        ptUserMentioned = strchr(rest, '@');
+        if (ptUserMentioned != NULL){
+            token = strtok(ptUserMentioned, " ");
+            strcpy(user, token);
+            rest = strtok(NULL, "");
+            *mentionTopList = occurrence(*mentionTopList, user);
+            // showList(*hashtagTopList);
+        }
+    }
+}
+
+void processOpE(PtNo_R **retweetsTopList, Tweet tt){
+    *retweetsTopList = insertRetweetsList(*retweetsTopList, tt.text, tt.rtCount);
 }
