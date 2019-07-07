@@ -31,14 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="DataStructs/ordered_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="DataStructs/ordered_list.h" />
 		<Unit filename="DataStructs/tweets.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="DataStructs/tweets.h">
-			<Option compilerVar="CC" />
-			<Option compile="1" />
-			<Option link="1" />
-		</Unit>
+		<Unit filename="DataStructs/tweets.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

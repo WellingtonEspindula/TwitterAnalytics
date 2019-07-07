@@ -1,0 +1,34 @@
+# depslib dependency file v1.0
+1562441234 source:d:\desktop\trabalho final ed\datastructs\tweets.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<strings.h>
+
+1562459959 source:d:\desktop\trabalho final ed\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	"DataStructs/ordered_list.h"
+	"DataStructs/tweets.h"
+
+1562449075 d:\desktop\trabalho final ed\datastructs\tweets.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1562460495 source:d:\desktop\trabalho final ed\datastructs\ordered_list.c
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+	<strings.h>
+	"ordered_list.h"
+
+1562449759 source:d:\desktop\trabalho final ed\datastructs\tweets.c
+	"tweets.h"
+
+1562461468 d:\desktop\trabalho final ed\datastructs\ordered_list.h
+

@@ -1,25 +1,16 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-//estrutura tweet.
-struct tweet //estrutura basica de um tweet.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* Defini-se aqui a estrutura base de um twitte */
+struct str_tweet
 {
-    char user[50];//string correspondente ao nome do usuario do tweet
-    char hashtags[280];//hashtag do tweet que pode ter até 280 caracteres.
-    char mencoes[280];//corresponde a uma mencao em um tweet.
-    int rts; //numero correspondente a quantidade de retweets que determinado tweet teve.
-    int likes; //numero de likes que o tweet recebeu.
+    char user[100];
+    char text[300];
+    int rtCount;
+    int favCount;
 };
-typedef struct tweet Tweet;
-
-
-struct TipoPtNo{
-       int ocorrencias;
-       char conteudo[280];
-       struct TipoPtNo* ant;
-       struct TipoPtNo* prox;
-       };
-typedef struct TipoPtNo PtNo;
+typedef struct str_tweet Tweet;
 
 struct user //estrutura que contém as informações de um usuário, para caso seja conveniente usar.
 {
@@ -36,8 +27,15 @@ typedef struct user User;
 
 typedef struct texto Texto;
 
-void leOP(FILE *operacoes ,int *par_a, int *par_b, int *par_c, int *par_d, int *par_e, int *par_f, char par_g[]); //função que lê o arquivo de ops.
-void leTW(FILE *entrada);//funcao que realiza a leitura do arquivo de entrada da base de tweets.
-PtNo *TrataHash(PtNo *pthashtags, char hash_achada[]);//funcao que realiza o tratamento de hashtags encontradas em tweets atualizando a lista.
-void imprime(PtNo* PtLista);
-PtNo *TrataMencoes(PtNo *ptmencoes, char mencao_achada[]);
+/** \brief A partir de uma linha de um arquivo CSV, transfere as informacoes
+ * para uma variavel do tipo Tweet
+  */
+Tweet readTwitte(char *linha);
+
+
+/* DEPRECATED */
+// void leOP(FILE *operacoes ,int *par_a, int *par_b, int *par_c, int *par_d, int *par_e, int *par_f, char par_g[]); //função que lê o arquivo de ops.
+// void leTW(FILE *entrada);//funcao que realiza a leitura do arquivo de entrada da base de tweets.
+// PtNo *Trata(PtNo *ptNo, char *found);//funcao que realiza o tratamento de hashtags encontradas em tweets atualizando a lista.
+// void imprime(PtNo* PtLista);
+// PtNo *UserInfluente(PtNo *ptinfluentes, char user[], int qtd_rts);
