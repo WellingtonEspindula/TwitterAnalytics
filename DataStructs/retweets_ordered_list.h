@@ -29,6 +29,10 @@ PtNo_R* selectRetweetList(PtNo_R *ptNo, char *content);
 PtNo_R* insertRetweetList(PtNo_R *ptNo, char *content, int rts);
 
 /* TODO */
+PtNo_R* sumRetweetsByContent(PtNo_R *ptNo, char *content, int rts);
+
+
+/* TODO */
 PtNo_R* removeRetweetList(PtNo_R *ptNo, char *content);
 
 /** \brief Método que destroi a lista e libera endereços de memoria alocados para a LDE

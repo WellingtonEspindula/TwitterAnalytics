@@ -25,6 +25,7 @@ void processOpA(PtNo_O **hashtagTopList, Tweet tt);
 void processOpB(PtNo_O **ativosTopList, Tweet tt);
 void processOpC(PtNo_R **retweetsTopList, Tweet tt);
 void processOpD(PtNo_O **ativosTopList, Tweet tt);
+void processOpE(PtNo_R **influencerTopList, Tweet tt);
 
 
 int LIMIT_OP_A = -1;
@@ -160,15 +161,16 @@ void initializeOperations(FILE *operationsFile){
 }
 
 void readEntryFile(FILE *entryFile){
-    char line[500];
+    char *line;
 
     PtNo_O *hashtagTopList = NULL;
     PtNo_O *ativosTopList = NULL;
     PtNo_R *retweetsTopList = NULL;
     PtNo_O *mentionTopList = NULL;
-    PtNo_R *moreInfluentialTopList = NULL;
+    PtNo_R *influencerTopList = NULL;
 
     while (fgets(line, 500, entryFile) != NULL) {
+        line = strchr(line, '@');
         Tweet tt = readTwitte(line);
         if (LIMIT_OP_A != -1){
             processOpA(&hashtagTopList, tt);
@@ -183,8 +185,11 @@ void readEntryFile(FILE *entryFile){
             processOpD(&mentionTopList, tt);
         }
         if (LIMIT_OP_E != -1){
-            processOpD(&moreInfluentialTopList, tt);
+            processOpE(&influencerTopList, tt);
         }
+//        if (LIMIT_OP_F != -1){
+//            processOpF(&influencerTopList, tt);
+//        }
 
 
         //  printf("Nome: %s\n",  tt.user);
@@ -198,7 +203,7 @@ void readEntryFile(FILE *entryFile){
     showList(ativosTopList);
     showRetweetsList(retweetsTopList);
     showList(mentionTopList);
-    showRetweetsList(moreInfluentialTopList);
+    showRetweetsList(influencerTopList);
 }
 
 void processOpA(PtNo_O **hashtagTopList, Tweet tt){
@@ -265,6 +270,6 @@ void processOpD(PtNo_O **mentionTopList, Tweet tt){
     }
 }
 
-void processOpE(PtNo_R **retweetsTopList, Tweet tt){
-    *retweetsTopList = insertRetweetsList(*retweetsTopList, tt.text, tt.rtCount);
+void processOpE(PtNo_R **influencerTopList, Tweet tt){
+    *influencerTopList = sumRetweetsByContent(*influencerTopList, tt.user, tt.rtCount);
 }

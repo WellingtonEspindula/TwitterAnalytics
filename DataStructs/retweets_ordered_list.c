@@ -84,6 +84,42 @@ PtNo_R* insertRetweetsList(PtNo_R *ptNo, char *content, int rts){
 }
 
 
+PtNo_R* sumRetweetsByContent(PtNo_R *ptNo, char *content, int rts){
+    PtNo_R *Pt = selectRetweetsList(ptNo, content);  //variavel auxiliar.
+    PtNo_R *aux = NULL;
+    PtNo_R *temp = NULL;
+    if(Pt == NULL)  // Caso nao tenha sido encontrado o elemento na lista, insere-o
+    {
+        ptNo = insertRetweetsList(ptNo, content, rts);
+    }
+    else            // Caso tenha o encontrado, aumenta a contagem e o realoca na lista
+    {
+        if (strcasecmp(Pt->content, content) == 0)
+        {
+            Pt->retwittes += rts;
+            while(Pt->prev != NULL && (Pt->retwittes > Pt->prev->retwittes || (Pt->retwittes == Pt->prev->retwittes && strcasecmp(Pt->content, Pt->prev->content) < 0)))
+            {
+                temp = Pt->prev->prev;
+                if(Pt->prev->prev != NULL){
+                    Pt->prev->prev->next = Pt;
+                }
+                Pt->prev->prev = Pt;
+
+                if(Pt->next != NULL){
+                    Pt->next->prev = Pt->prev;
+                }
+                Pt->prev->next = Pt->next;
+                Pt->next = Pt->prev;
+                Pt->prev = temp;
+            }
+            if(Pt->prev == NULL)
+                ptNo = Pt;
+        }
+    }
+    return ptNo;
+}
+
+
 PtNo_R* removeRetweetsList(PtNo_R *ptNo, char *hashtag){
   /* TODO */
   return NULL;

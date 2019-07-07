@@ -5,7 +5,7 @@
 	<string.h>
 	<strings.h>
 
-1562503850 source:d:\desktop\trabalho final ed\main.c
+1562506278 source:d:\desktop\trabalho final ed\main.c
 	<stdlib.h>
 	<stdio.h>
 	<stdlib.h>
@@ -46,7 +46,7 @@
 	<strings.h>
 	"occurrence_ordered_list.h"
 
-1562503883 source:d:\desktop\trabalho final ed\datastructs\retweets_ordered_list.c
+1562507543 source:d:\desktop\trabalho final ed\datastructs\retweets_ordered_list.c
 	<stdlib.h>
 	<stdio.h>
 	<stdlib.h>
@@ -55,5 +55,5 @@
 	<strings.h>
 	"retweets_ordered_list.h"
 
-1562470822 d:\desktop\trabalho final ed\datastructs\retweets_ordered_list.h
+1562506042 d:\desktop\trabalho final ed\datastructs\retweets_ordered_list.h
 
