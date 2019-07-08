@@ -8,13 +8,13 @@ Tweet readTwitte(char *linha){
     Tweet twitte;
     strcpy(twitte.user, strtok(linha, ";"));
     strcpy(twitte.text, strtok(NULL, ";"));
-    
+
     char rtCountStr[5];
     char favCountStr[5];
 
     strcpy(rtCountStr, strtok(NULL, ";"));
-    strcpy(favCountStr, strtok(NULL, ";"));
-    
+    strcpy(favCountStr, strtok(NULL, "\n"));
+
     twitte.rtCount = atoi(rtCountStr);
     twitte.favCount = atoi(favCountStr);
 

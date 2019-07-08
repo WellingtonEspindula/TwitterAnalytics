@@ -11,6 +11,7 @@ HEADER
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <locale.h>
 #include <strings.h>
 #endif
 
@@ -47,6 +48,8 @@ char HASHTAG_OP_G[280];
 
 
 int main(int argc, char ** argv){
+    setlocale(LC_ALL, "Portuguese");
+
     // Inicializa G como string nula
     HASHTAG_OP_G[0] = '\0';
 
@@ -84,9 +87,10 @@ int main(int argc, char ** argv){
         readEntryFile(entry, &hashtagTopList, &ativosTopList, &retweetsTopList, &mentionTopList, &influencerTopList, &mostEngagedTopList, &relatedHashtags);
         writeOutput(output, hashtagTopList, ativosTopList, retweetsTopList, mentionTopList, influencerTopList, mostEngagedTopList, relatedHashtags);
 
-        fclose(entry);
         fclose(operations);
+        fclose(entry);
         fclose(output);
+
 
     }
 
@@ -101,6 +105,7 @@ int main(int argc, char ** argv){
  */
 void initializeOperations(FILE *operationsFile){
     char operation[282];
+    fflush(operationsFile);
     while (fgets(operation, 280, operationsFile) != NULL) {
         char *op;
         op = strtok(operation, ";");
@@ -146,6 +151,10 @@ void readEntryFile(FILE *entryFile, PtNo_O **hashtagTopList, PtNo_O **ativosTopL
     while (fgets(line, 500, entryFile) != NULL) {
         line = strchr(line, '@');           // aponta pro primeiro '@' da linha
         Tweet tt = readTwitte(line);
+        // printf("%s\n", tt.user);
+        // printf("%s\n", tt.text);
+        // printf("%d\n", tt.rtCount);
+        // printf("%d\n\n", tt.favCount);
         if (LIMIT_OP_A != -1){
             processOpA(hashtagTopList, tt);
         }
