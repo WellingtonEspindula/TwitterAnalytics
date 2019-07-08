@@ -3,22 +3,22 @@
 
  */
 
-struct Retweets_LDE{
-       int retwittes;
+struct Engagement_LDE{
+       int engagement;
        char content[280];
-       struct Retweets_LDE* prev;
-       struct Retweets_LDE* next;
+       struct Engagement_LDE* prev;
+       struct Engagement_LDE* next;
        };
-typedef struct Retweets_LDE PtNo_R;
+typedef struct Engagement_LDE PtNo_E;
 
 
 /** \brief Metodo que inicializa a lista alocando endereço de memória
  * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
 */
-PtNo_R* initializeRetweetList(PtNo_R *ptNo);
+PtNo_E* initializeEngagementList(PtNo_E *ptNo);
 
 /* TODO  */
-PtNo_R* selectRetweetsList(PtNo_R *ptNo, char *content);
+PtNo_E* selectEngagementList(PtNo_E *ptNo, char *content);
 
 
 /** \brief Método que insere elementos na LDE
@@ -26,20 +26,23 @@ PtNo_R* selectRetweetsList(PtNo_R *ptNo, char *content);
  * \param *hashtag - string da hashtag que sera inserida na lista
  * \return Retorna lista com elementos inseridos
 */
-PtNo_R* insertRetweetsList(PtNo_R *ptNo, char *content, int rts);
+PtNo_E* insertEngagementList(PtNo_E *ptNo, char *content, int mention, int likes, int rts);
 
 /* TODO */
-PtNo_R* sumRetweetsByContent(PtNo_R *ptNo, char *content, int rts);
+PtNo_E* sumEngagementsByContent(PtNo_E *ptNo, char *content, int likes, int rts);
+
+/* TODO */
+PtNo_E* mentioned(PtNo_E *ptNo, char *content);
 
 
 /* TODO */
-PtNo_R* removeRetweetsList(PtNo_R *ptNo, char *content);
+PtNo_E* removeEngagementList(PtNo_E *ptNo, char *content);
 
 /** \brief Método que destroi a lista e libera endereços de memoria alocados para a LDE
  * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
  * \return Retorna um ponteiro para a lista com todos os laços destruidos e os elementos liberados da memória
 */
-PtNo_R* destroyRetweetsList(PtNo_R *ptNo);
+PtNo_E* destroyEngagementList(PtNo_E *ptNo);
 
 
 /* Auxiliares */
@@ -47,4 +50,4 @@ PtNo_R* destroyRetweetsList(PtNo_R *ptNo);
 /** \brief Método que exibe a lista
  * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
 */
-void showRetweetsList(PtNo_R *ptNo);
+void showEngagementList(PtNo_E *ptNo);

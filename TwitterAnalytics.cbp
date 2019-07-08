@@ -32,10 +32,18 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="DataStructs/engagement_ordered_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="DataStructs/engagement_ordered_list.h" />
 		<Unit filename="DataStructs/occurrence_ordered_list.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="DataStructs/occurrence_ordered_list.h" />
+		<Unit filename="DataStructs/retweets_ordered_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="DataStructs/retweets_ordered_list.h" />
 		<Unit filename="DataStructs/tweets.c">
 			<Option compilerVar="CC" />
 		</Unit>
