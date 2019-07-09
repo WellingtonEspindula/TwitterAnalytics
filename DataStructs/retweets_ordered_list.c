@@ -1,3 +1,8 @@
+/*
+    Autores: Ricco Soares e Wellington Espindula
+
+*/
+
 #include "retweets_ordered_list.h"
 
 PtNo_R* initializeRetweetsList(PtNo_R *ptNo){

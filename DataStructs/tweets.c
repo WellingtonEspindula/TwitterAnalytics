@@ -1,9 +1,10 @@
+/*
+    Autores: Ricco Soares e Wellington Espindula
+
+*/
+
 #include "tweets.h"
 
-
-/** \brief A partir de uma linha de um arquivo CSV, transfere as informacoes
- * para uma variavel do tipo Tweet
-  */
 Tweet readTwitte(char *linha){
     Tweet twitte;
     strcpy(twitte.user, strtok(linha, ";"));
@@ -32,13 +33,13 @@ int LIMIT_OP_F = -1;
 int LIMIT_OP_G = -1;
 char HASHTAG_OP_G[280];
 
-/** \brief Conforme as informacoes contidas no arquivo de operacoes, verifica
- * quais operacoes serao realizadas, habilitando-as e definindo a entrada dessas
- * operacoes
- */
+
 void initializeOperations(FILE *operationsFile){
+    // Inicializa G como string nula
+    HASHTAG_OP_G[0] = '\0';
+
     char operation[282];
-    fflush(operationsFile);
+    fflush(operationsFile);     // limpa o buffer antes de mais nada
     while (fgets(operation, 280, operationsFile) != NULL) {
         char *op;
         op = strtok(operation, ";");

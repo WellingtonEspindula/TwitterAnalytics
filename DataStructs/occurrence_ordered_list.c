@@ -1,3 +1,8 @@
+/*
+    Autores: Ricco Soares e Wellington Espindula
+
+*/
+
 #include "occurrence_ordered_list.h"
 
 PtNo_O* initializeList(PtNo_O *ptNo){

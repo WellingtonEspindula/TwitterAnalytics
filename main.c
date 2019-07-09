@@ -23,9 +23,6 @@ int main(int argc, char ** argv){
     // Ajeita codificacoes
     setlocale(LC_ALL, "pt_BR.UTF-8");
 
-    // Inicializa G como string nula
-    HASHTAG_OP_G[0] = '\0';
-
     // Se tiver o numero certo de argumentos
     if (argc >= 3){
         /* Tenta abrir os arquivos de entrada de dados, de operacoes e de saida */
@@ -44,6 +41,8 @@ int main(int argc, char ** argv){
             printf("Arquivo %s nao encontrado!\n", argv[3]);
         }
 
+
+        /* PONTEIROS PARA AS TADs USADAS */
         PtNo_O *hashtagTopList = NULL;
         PtNo_O *ativosTopList = NULL;
         PtNo_R *retweetsTopList = NULL;

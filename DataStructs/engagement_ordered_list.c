@@ -1,6 +1,9 @@
+/*
+    Autores: Ricco Soares e Wellington Espindula
+
+*/
+
 #include "engagement_ordered_list.h"
-
-
 
 PtNo_E* initializeEngagementList(PtNo_E *ptNo){
     ptNo = (PtNo_E *) malloc(sizeof(PtNo_E));
