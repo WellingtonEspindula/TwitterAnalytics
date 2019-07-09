@@ -9,8 +9,8 @@ Tweet readTwitte(char *linha){
     strcpy(twitte.user, strtok(linha, ";"));
     strcpy(twitte.text, strtok(NULL, ";"));
 
-    char rtCountStr[5];
-    char favCountStr[5];
+    char rtCountStr[10];
+    char favCountStr[10];
 
     strcpy(rtCountStr, strtok(NULL, ";"));
     strcpy(favCountStr, strtok(NULL, "\n"));

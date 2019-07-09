@@ -11,6 +11,7 @@ HEADER
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 #include <locale.h>
 #include <strings.h>
 #endif
@@ -19,6 +20,7 @@ HEADER
 #include "DataStructs/occurrence_ordered_list.h"
 #include "DataStructs/engagement_ordered_list.h"
 #include "DataStructs/tweets.h"
+#include "Utils/StringUtils.h"
 
 void initializeOperations(FILE *operationsFile);
 void readEntryFile(FILE *entryFile, PtNo_O **hashtagTopList, PtNo_O **ativosTopList,
@@ -36,7 +38,7 @@ void processOpE(PtNo_R **influencerTopList, Tweet tt);
 void processOpF(PtNo_E **mostEngagedTopList, Tweet tt);
 void processOpG(PtNo_O **relatedHashtags, Tweet tt, char *hashtagSearch);
 
-
+/* Flags para as operacoes. Guardam os limites de exibicao para as operacoes. Se alguma das operacoes nao constar na lista, recebe -1 */
 int LIMIT_OP_A = -1;
 int LIMIT_OP_B = -1;
 int LIMIT_OP_C = -1;
@@ -48,7 +50,8 @@ char HASHTAG_OP_G[280];
 
 
 int main(int argc, char ** argv){
-    setlocale(LC_ALL, "Portuguese");
+    // Ajeita codificacoes
+    setlocale(LC_ALL, "pt_BR.UTF-8");
 
     // Inicializa G como string nula
     HASHTAG_OP_G[0] = '\0';
@@ -71,10 +74,6 @@ int main(int argc, char ** argv){
             printf("Arquivo %s nao encontrado!\n", argv[3]);
         }
 
-        // fgets(NULL, 500, entry);
-        // fgets(NULL, 500, operations);
-
-
         PtNo_O *hashtagTopList = NULL;
         PtNo_O *ativosTopList = NULL;
         PtNo_R *retweetsTopList = NULL;
@@ -84,8 +83,36 @@ int main(int argc, char ** argv){
         PtNo_O *relatedHashtags = NULL;
 
         initializeOperations(operations);
+
+
+        clock_t start;
+        clock_t end;
+
+
+        // Inicio da contagem de tempo para carregamento da base
+        // start = clock();
+//        printf("tempo inicial = %f", (double) start);
+
+        // Le a base a carrega nas estruturas
         readEntryFile(entry, &hashtagTopList, &ativosTopList, &retweetsTopList, &mentionTopList, &influencerTopList, &mostEngagedTopList, &relatedHashtags);
+
+        // Fim da contagem de tempo
+        // end = clock();
+//        float readingTime = (float)(end - start) / CLOCKS_PER_SEC;
+        // printf("O carregamento da base de dados nas estruturas levou %f segundos\n", readingTime);
+
+
+        // Inicio da contagem de tempo para escrita do arquivo
+        // start = clock();
+
+        // Escreve arquivo
         writeOutput(output, hashtagTopList, ativosTopList, retweetsTopList, mentionTopList, influencerTopList, mostEngagedTopList, relatedHashtags);
+
+        // Fim da contagem de tempo
+        // end = clock();
+        // float writingTime = (float)(end - start) / CLOCKS_PER_SEC;
+        // printf("A escrita do arquivo de saida levou %f segundos\n", writingTime);
+
 
         fclose(operations);
         fclose(entry);
@@ -151,10 +178,8 @@ void readEntryFile(FILE *entryFile, PtNo_O **hashtagTopList, PtNo_O **ativosTopL
     while (fgets(line, 500, entryFile) != NULL) {
         line = strchr(line, '@');           // aponta pro primeiro '@' da linha
         Tweet tt = readTwitte(line);
-        // printf("%s\n", tt.user);
-        // printf("%s\n", tt.text);
-        // printf("%d\n", tt.rtCount);
-        // printf("%d\n\n", tt.favCount);
+
+        /* Verifica se a operacao consta no arquivo de operacoes antes de realziar a mesma */
         if (LIMIT_OP_A != -1){
             processOpA(hashtagTopList, tt);
         }
@@ -177,21 +202,13 @@ void readEntryFile(FILE *entryFile, PtNo_O **hashtagTopList, PtNo_O **ativosTopL
             processOpG(relatedHashtags, tt, HASHTAG_OP_G);
         }
     }
-
-    // showList(*hashtagTopList);
-    // showList(*ativosTopList);
-    // showRetweetsList(*retweetsTopList);
-    // showList(*mentionTopList);
-    // showRetweetsList(*influencerTopList);
-    // showEngagementList(*mostEngagedTopList);
-    // showList(*relatedHashtags);
 }
 
 void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
                 PtNo_R *retweetsTopList, PtNo_O *mentionTopList, PtNo_R *influencerTopList,
                 PtNo_E *mostEngagedTopList, PtNo_O *relatedHashtags){
 
-   fprintf(output, "--- OP A\n");
+   fprintf(output, "--- OP a\n");
    if (LIMIT_OP_A != -1){
        PtNo_O *aux = hashtagTopList;
        if (LIMIT_OP_A == 0){
@@ -209,7 +226,7 @@ void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
        }
    }
 
-   fprintf(output, "--- OP B\n");
+   fprintf(output, "--- OP b\n");
    if (LIMIT_OP_B != -1){
        PtNo_O *aux = ativosTopList;
        if (LIMIT_OP_B == 0){
@@ -227,7 +244,7 @@ void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
        }
    }
 
-   fprintf(output, "--- OP C\n");
+   fprintf(output, "--- OP c\n");
    if (LIMIT_OP_C != -1){
        PtNo_R *aux = retweetsTopList;
        if (LIMIT_OP_C == 0){
@@ -245,7 +262,7 @@ void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
        }
    }
 
-   fprintf(output, "--- OP D\n");
+   fprintf(output, "--- OP d\n");
    if (LIMIT_OP_D != -1){
        PtNo_O *aux = mentionTopList;
        if (LIMIT_OP_D == 0){
@@ -263,7 +280,7 @@ void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
        }
    }
 
-  fprintf(output, "--- OP E\n");
+  fprintf(output, "--- OP e\n");
   if (LIMIT_OP_E != -1){
       PtNo_R *aux = influencerTopList;
       if (LIMIT_OP_E == 0){
@@ -281,7 +298,7 @@ void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
       }
   }
 
-  fprintf(output, "--- OP F\n");
+  fprintf(output, "--- OP f\n");
   if (LIMIT_OP_F != -1){
       PtNo_E *aux = mostEngagedTopList;
       if (LIMIT_OP_F == 0){
@@ -299,7 +316,7 @@ void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
       }
   }
 
-  fprintf(output, "--- OP G\n");
+  fprintf(output, "--- OP g\n");
   if (LIMIT_OP_G != -1){
       PtNo_O *aux = relatedHashtags;
       if (LIMIT_OP_G == 0){
@@ -322,28 +339,26 @@ void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
 
 void processOpA(PtNo_O **hashtagTopList, Tweet tt){
     char hashtag[280];      // guarda uma hashtag
-    char *ptHashtag;    // Aponta para sequencia de caracteres a partir de '#'
+    char *ptHashtag;        // Aponta para sequencia de caracteres a partir de '#'
     char *rest = NULL;      // armazena o "resto" apos a hashtag encontrada
     char *token = NULL;     // saida do strtok
 
-    // Primeira vez que verifica se tem um '#' e o captura, copiando-o ate o ' '
-    ptHashtag = strchr(tt.text, '#');   // armazena texto de primeira hashtag em diante
-    if (ptHashtag != NULL){                 // caso exista uma hashtag
-        token = strtok(ptHashtag, " ");     // pega da hashtag ate o ' ' e o armazena
-        strcpy(hashtag, token);             // copia o token armazenado para hashtag
-        rest = strtok(NULL, "");            // copia o resto da frase para rest
+    // Primeira vez que verifica se tem um '#' e o captura, copiando-o ate o delimitador
+    ptHashtag = strchr(tt.text, '#');                // armazena texto da primeira hashtag em diante
+    if (ptHashtag != NULL){                          // caso exista uma hashtag
+        token = strtok(ptHashtag, " .!?;,'\"");       // pega da hashtag ate o delimitador e o armazena
+        strcpy(hashtag, token);                     // copia o token armazenado para hashtag
+        rest = strtok(NULL, "");                    // copia o resto da frase para rest
         *hashtagTopList = occurrence(*hashtagTopList, hashtag);   // indica que houve uma ocorrendia de hashtag
-        // showList(*hashtagTopList);   // mostra lista
     }
     // aqui comeca o loop de encontrar outras hashtags no texto do twitte
     while ((ptHashtag != NULL) && (rest != '\0')){
         ptHashtag = strchr(rest, '#');
         if (ptHashtag != NULL){
-            token = strtok(ptHashtag, " ");
+            token = strtok(ptHashtag, " .!?;,'\"");
             strcpy(hashtag, token);
             rest = strtok(NULL, "");
             *hashtagTopList = occurrence(*hashtagTopList, hashtag);
-            // showList(*hashtagTopList);
         }
     }
 }
@@ -362,24 +377,22 @@ void processOpD(PtNo_O **mentionTopList, Tweet tt){
     char *rest = NULL;      // armazena o "resto" apos a hashtag encontrada
     char *token = NULL;     // saida do strtok
 
-    // Primeira vez que verifica se tem um '@' e o captura, copiando-o ate o ' '
-    ptUserMentioned = strchr(tt.text, '@');   // armazena texto de primeira hashtag em diante
-    if (ptUserMentioned != NULL){                 // caso exista uma hashtag
-        token = strtok(ptUserMentioned, " ");     // pega da hashtag ate o ' ' e o armazena
-        strcpy(user, token);             // copia o token armazenado para hashtag
-        rest = strtok(NULL, "");            // copia o resto da frase para rest
-        *mentionTopList = occurrence(*mentionTopList, user);   // indica que houve uma ocorrendia de hashtag
-        // showList(*hashtagTopList);   // mostra lista
+    // Primeira vez que verifica se tem um '@' e o captura, copiando-o ate o delimitador
+    ptUserMentioned = strchr(tt.text, '@');         // armazena texto do primeiro arroba em diante
+    if (ptUserMentioned != NULL){                   // caso exista um arroba
+        token = strtok(ptUserMentioned, " .!?;,'\"");       // pega do arroba ate o delimitador e o armazena
+        strcpy(user, token);                        // copia o token armazenado para user
+        rest = strtok(NULL, "");                    // copia o resto da frase para rest
+        *mentionTopList = occurrence(*mentionTopList, user);   // indica que houve uma ocorrencia de hashtag
     }
     // aqui comeca o loop de encontrar outros usuarios mencionados no texto do twitte
     while ((ptUserMentioned != NULL) && (rest != '\0')){
         ptUserMentioned = strchr(rest, '@');
         if (ptUserMentioned != NULL){
-            token = strtok(ptUserMentioned, " ");
+            token = strtok(ptUserMentioned, " .!?;,'\"");
             strcpy(user, token);
             rest = strtok(NULL, "");
             *mentionTopList = occurrence(*mentionTopList, user);
-            // showList(*hashtagTopList);
         }
     }
 }
@@ -399,24 +412,23 @@ void processOpF(PtNo_E **mostEngagedTopList, Tweet tt){
     char *rest = NULL;          // armazena o "resto" apos a hashtag encontrada
     char *token = NULL;         // saida do strtok
 
-    // Primeira vez que verifica se tem um '@' e o captura, copiando-o ate o ' '
-    ptUserMentioned = strchr(tt.text, '@');         // armazena texto de primeira hashtag em diante
-    if (ptUserMentioned != NULL){                   // caso exista uma hashtag
-        token = strtok(ptUserMentioned, " ");       // pega da hashtag ate o ' ' e o armazena
-        strcpy(user, token);                        // copia o token armazenado para hashtag
-        rest = strtok(NULL, "");                    // copia o resto da frase para rest
-        *mostEngagedTopList = mentioned(*mostEngagedTopList, user);   // indica que houve uma ocorrendia de hashtag
+    // Primeira vez que verifica se tem um '@' e o captura, copiando-o ate o delimitador
+    ptUserMentioned = strchr(tt.text, '@');                 // armazena texto do primeiro arroba em diante
+    if (ptUserMentioned != NULL){                           // caso exista um arroba
+        token = strtok(ptUserMentioned, " .!?;,'\"");         // pega do arroba ate o delimitador e o armazena
+        strcpy(user, token);                                // copia o token armazenado para user
+        rest = strtok(NULL, "");                            // copia o resto da frase para rest
+        *mostEngagedTopList = mentioned(*mostEngagedTopList, user);   // indica que houve uma ocorrendia de arroba
         // showList(*hashtagTopList);   // mostra lista
     }
     // aqui comeca o loop de encontrar outros usuarios mencionados no texto do twitte
     while ((ptUserMentioned != NULL) && (rest != '\0')){
         ptUserMentioned = strchr(rest, '@');
         if (ptUserMentioned != NULL){
-            token = strtok(ptUserMentioned, " ");
+            token = strtok(ptUserMentioned, " .!?;,'\"");
             strcpy(user, token);
             rest = strtok(NULL, "");
             *mostEngagedTopList = mentioned(*mostEngagedTopList, user);
-            // showList(*hashtagTopList);
         }
     }
 }
@@ -431,12 +443,12 @@ void processOpG(PtNo_O **relatedHashtags, Tweet tt, char *hashtagSearch){
     char *rest = NULL;      // armazena o "resto" apos a hashtag encontrada
     char *token = NULL;     // saida do strtok
 
-    // Primeira vez que verifica se tem um '#' e o captura, copiando-o ate o ' '
-    ptHashtag = strchr(tt.text, '#');       // armazena texto de primeira hashtag em diante
-    if (ptHashtag != NULL){                 // caso exista uma hashtag
-        token = strtok(ptHashtag, " ");     // pega da hashtag ate o ' ' e o armazena
-        strcpy(hashtag, token);             // copia o token armazenado para hashtag
-        rest = strtok(NULL, "");            // copia o resto da frase para rest
+    // Primeira vez que verifica se tem um '#' e o captura, copiando-o ate o delimitador
+    ptHashtag = strchr(tt.text, '#');               // armazena texto de primeira hashtag em diante
+    if (ptHashtag != NULL){                         // caso exista uma hashtag
+        token = strtok(ptHashtag, " .!?;,'\"");       // pega da hashtag ate o delimitador e o armazena
+        strcpy(hashtag, token);                     // copia o token armazenado para hashtag
+        rest = strtok(NULL, "");                    // copia o resto da frase para rest
         if (strcmp(hashtag, hashtagSearch) ==  0){
             hashtagFound = true;
         } else {
@@ -448,7 +460,7 @@ void processOpG(PtNo_O **relatedHashtags, Tweet tt, char *hashtagSearch){
     while ((ptHashtag != NULL) && (rest != '\0')){
         ptHashtag = strchr(rest, '#');
         if (ptHashtag != NULL){
-            token = strtok(ptHashtag, " ");
+            token = strtok(ptHashtag, " .!?;,'\"");
             strcpy(hashtag, token);
             rest = strtok(NULL, "");
             if (strcmp(hashtag, hashtagSearch) == 0){

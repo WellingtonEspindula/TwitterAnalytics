@@ -11,7 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters='&quot;D:\Desktop\Trabalho Final ED\bin\Debug\entrada.txt&quot; &quot;D:\Desktop\Trabalho Final ED\bin\Debug\operacoes.txt&quot; &quot;D:\Desktop\Trabalho Final ED\bin\Debug\saida.txt&quot;' />
+				<Option parameters='&quot;D:\Desktop\Trabalho Final ED\bin\Debug\base.csv&quot; &quot;D:\Desktop\Trabalho Final ED\bin\Debug\op-zero.csv&quot; &quot;D:\Desktop\Trabalho Final ED\bin\Debug\saida.txt&quot;' />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -48,6 +48,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="DataStructs/tweets.h" />
+		<Unit filename="Utils/StringUtils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Utils/StringUtils.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -1,90 +1,92 @@
-#include <StringUtils.h>
+#include "StringUtils.h"
 
-char *removeStringAcentuation(char *string){
+char *removeStringAccentuation(char *string){
+
     int i = 0;
     char c = string[i];
-    char *stringNotAccented;
 
     // Percorre a string substituindo os caracteres acentuados por caracteres nao acentuados
     // e armazenando o resultado na string final
-    while (c != '\0')
+    while (string[i] != '\0')
     {
         // A acentuado
-        if ((c == 'Ã') || 
-            (c == 'Á') || 
-            (c == 'Â') || 
-            (c == 'À') || 
-            (c == 'Ä') 
+        if ((c == 'Ã') ||
+            (c == 'Á') ||
+            (c == 'Â') ||
+            (c == 'À') ||
+            (c == 'Ä')
         ) {
-            stringNotAccented[i] = 'A';
+            string[i] = 'A';
         } else if (     // a acentuado
-            (c == 'ã') || 
-            (c == 'á') || 
-            (c == 'â') || 
-            (c == 'à') || 
-            (c == 'ä') 
+            (c == 'ã') ||
+            (c == 'á') ||
+            (c == 'â') ||
+            (c == 'à') ||
+            (c == 'ä')
         ) {
-            stringNotAccented[i] = 'a';
+            string[i] = 'a';
         } else if (     // E acentuado
             (c == 'É') ||
             (c == 'È') ||
             (c == 'Ê') ||
             (c == 'Ë')
         ){
-            stringNotAccented = 'E';
+            string[i] = 'E';
         } else if (     // e acentuado
             (c == 'é') ||
             (c == 'è') ||
             (c == 'ê') ||
             (c == 'ë')
         ){
-            stringNotAccented = 'e';
+            string[i] = 'e';
         } else if (     // I acentuado
             (c == 'Í') ||
             (c == 'Ì') ||
             (c == 'Î') ||
             (c == 'Ï')
         ){
-            stringNotAccented = 'I';
+            string[i] = 'I';
         } else if (     // i acentuado
             (c == 'í') ||
             (c == 'ì') ||
             (c == 'î') ||
             (c == 'ï')
         ){
-            stringNotAccented = 'i';
+            string[i] = 'i';
         } else if (     // O acentuado
             (c == 'Ó') ||
             (c == 'Ò') ||
             (c == 'Ô') ||
             (c == 'Ö')
         ){
-            stringNotAccented = 'O';
+            string[i] = 'O';
         } else if (     // o acentuado
             (c == 'ó') ||
             (c == 'ò') ||
             (c == 'ô') ||
             (c == 'ö')
         ){
-            stringNotAccented = 'o';
+            string[i] = 'o';
         } else if (     // U acentuado
             (c == 'Ú') ||
             (c == 'Ù') ||
             (c == 'Û') ||
             (c == 'Ü')
         ){
-            stringNotAccented = 'U';
+            string[i] = 'U';
         } else if (     // u acentuado
             (c == 'ú') ||
             (c == 'ù') ||
             (c == 'û') ||
             (c == 'ü')
         ){
-            stringNotAccented = 'u';
+            string[i] = 'u';
         } else {
-            stringNotAccented = c;
+            string[i] = c;
         }
         i++;
+        c = string[i];
     }
-    stringNotAccented[i] = '\0';
+    string[i] = '\0';
+    return string;
 }

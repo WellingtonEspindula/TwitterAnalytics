@@ -5,19 +5,22 @@
 	<string.h>
 	<strings.h>
 
-1562595422 source:d:\desktop\trabalho final ed\main.c
+1562629954 source:d:\desktop\trabalho final ed\main.c
 	<stdlib.h>
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 	<string.h>
+	<time.h>
+	<locale.h>
 	<strings.h>
 	"DataStructs/retweets_ordered_list.h"
 	"DataStructs/occurrence_ordered_list.h"
 	"DataStructs/engagement_ordered_list.h"
 	"DataStructs/tweets.h"
+	"Utils/StringUtils.h"
 
-1562449075 d:\desktop\trabalho final ed\datastructs\tweets.h
+1562597424 d:\desktop\trabalho final ed\datastructs\tweets.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -31,7 +34,7 @@
 	<strings.h>
 	"ordered_list.h"
 
-1562595218 source:d:\desktop\trabalho final ed\datastructs\tweets.c
+1562616160 source:d:\desktop\trabalho final ed\datastructs\tweets.c
 	"tweets.h"
 
 1562461468 d:\desktop\trabalho final ed\datastructs\ordered_list.h
@@ -68,4 +71,9 @@
 	"engagement_ordered_list.h"
 
 1562524278 d:\desktop\trabalho final ed\datastructs\engagement_ordered_list.h
+
+1562599080 d:\desktop\trabalho final ed\utils\stringutils.h
+
+1562629216 source:d:\desktop\trabalho final ed\utils\stringutils.c
+	"StringUtils.h"
 

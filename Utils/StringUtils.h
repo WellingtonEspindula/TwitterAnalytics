@@ -4,4 +4,4 @@
  * \param *string - String a ser tratada
  * \return retona a string ja tratada (nao acentuada)
  */
-char *removeStringAcentuation(char *string);
+char *removeStringAccentuation(char *string);
