@@ -74,7 +74,6 @@ PtNo_E* insertEngagementList(PtNo_E *ptNo, char *content, int mention, int likes
 
 PtNo_E* sumEngagementsByContent(PtNo_E *ptNo, char *content, int likes, int rts){
     PtNo_E *Pt = selectEngagementList(ptNo, content);  //variavel auxiliar.
-    PtNo_E *aux = NULL;
     PtNo_E *temp = NULL;
     if(Pt == NULL)  // Caso nao tenha sido encontrado o elemento na lista, insere-o
     {
@@ -110,7 +109,6 @@ PtNo_E* sumEngagementsByContent(PtNo_E *ptNo, char *content, int likes, int rts)
 
 PtNo_E* mentioned(PtNo_E *ptNo, char *content){
     PtNo_E *Pt = selectEngagementList(ptNo, content);  //variavel auxiliar.
-    PtNo_E *aux = NULL;
     PtNo_E *temp = NULL;
     if(Pt == NULL)  // Caso nao tenha sido encontrado o elemento na lista, insere-o
     {

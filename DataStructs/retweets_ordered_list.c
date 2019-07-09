@@ -76,7 +76,6 @@ PtNo_R* insertRetweetsList(PtNo_R *ptNo, char *content, int rts){
 
 PtNo_R* sumRetweetsByContent(PtNo_R *ptNo, char *content, int rts){
     PtNo_R *Pt = selectRetweetsList(ptNo, content);  //variavel auxiliar.
-    PtNo_R *aux = NULL;
     PtNo_R *temp = NULL;
     if(Pt == NULL)  // Caso nao tenha sido encontrado o elemento na lista, insere-o
     {

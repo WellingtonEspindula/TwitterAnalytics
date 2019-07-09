@@ -76,7 +76,6 @@ PtNo_O* insertList(PtNo_O *ptNo, char *content){
 PtNo_O* occurrence(PtNo_O *ptNo, char *content)
 {
     PtNo_O *Pt = selectList(ptNo, content);  //variavel auxiliar.
-    PtNo_O *aux = NULL;
     PtNo_O *temp = NULL;
     if(Pt == NULL)  // Caso nao tenha sido encontrado o elemento na lista, insere-o
     {
