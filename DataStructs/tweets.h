@@ -39,6 +39,8 @@ void writeOutput(FILE *output, PtNo_O *hashtagTopList, PtNo_O *ativosTopList,
                 PtNo_R *retweetsTopList, PtNo_O *mentionTopList, PtNo_R *influencerTopList,
                 PtNo_E *mostEngagedTopList, PtNo_O *relatedHashtags);
 
+
+/* METODOS DE PROCESSAMENTO DE OPERACOES */
 void processOpA(PtNo_O **hashtagTopList, Tweet tt);
 void processOpB(PtNo_O **ativosTopList, Tweet tt);
 void processOpC(PtNo_R **retweetsTopList, Tweet tt);

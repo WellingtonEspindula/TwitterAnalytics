@@ -1,9 +1,9 @@
 /*
-    Autores: Ricco Constantino Soares e Wellington Espindula
+    Autores: Ricco Soares e Wellington Espindula
     
-    Descricao: A classe eh responsavel da operação relativa à lista de 
-    usuários mais engajados, além dos cabeçalhos das funções básicas 
-    correspondentes a essa estrutura.
+    Descricao: A classe eh responsavel pelas operacoes relativa à lista 
+    (Lista Duplamente Encadeada) de usuarios mais engajados, alem dos 
+    cabeçalhos das funcoes basicas correspondentes a essa estrutura.
 
  */
 
@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
+#include <locale.h>
 #include <strings.h>
 #endif
 
