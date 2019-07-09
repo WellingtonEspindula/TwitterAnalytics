@@ -90,7 +90,7 @@ int main(int argc, char ** argv){
 
 
         // Inicio da contagem de tempo para carregamento da base
-        // start = clock();
+         start = clock();
 //        printf("tempo inicial = %f", (double) start);
 
         // Le a base a carrega nas estruturas
@@ -198,7 +198,7 @@ void readEntryFile(FILE *entryFile, PtNo_O **hashtagTopList, PtNo_O **ativosTopL
         if (LIMIT_OP_F != -1){
             processOpF(mostEngagedTopList, tt);
         }
-        if (LIMIT_OP_F != -1){
+        if (LIMIT_OP_G != -1){
             processOpG(relatedHashtags, tt, HASHTAG_OP_G);
         }
     }
