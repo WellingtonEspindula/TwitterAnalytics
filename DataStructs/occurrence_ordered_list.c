@@ -1,23 +1,9 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-#include <strings.h>
-
-#ifndef ORDERED_LIST_H
-#define ORDERED_LIST_H
 #include "occurrence_ordered_list.h"
-#endif
 
-/** \brief Metodo que inicializa a lista alocando endereço de memória
- * \param *ptLista - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
-*/
 PtNo_O* initializeList(PtNo_O *ptNo){
   ptNo = (PtNo_O *) malloc(sizeof(PtNo_O));
   return ptNo;
 }
-
 
 PtNo_O* selectList(PtNo_O *ptNo, char *content){
   if (ptNo != NULL){
@@ -82,12 +68,6 @@ PtNo_O* insertList(PtNo_O *ptNo, char *content){
     return ptNo;
 }
 
-
-
-/** \brief Funcao que trata as ocorrencias de um texto na lista
- * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
- * \param *content - Texto que sera adicionado uma ocorrencia na lista
-*/
 PtNo_O* occurrence(PtNo_O *ptNo, char *content)
 {
     PtNo_O *Pt = selectList(ptNo, content);  //variavel auxiliar.
@@ -124,18 +104,11 @@ PtNo_O* occurrence(PtNo_O *ptNo, char *content)
     return ptNo;
 }
 
-
-
 PtNo_O* removeList(PtNo_O *ptNo, char *hashtag){
   /* TODO */
   return NULL;
 }
 
-
-/** \brief Método que destroi a lista e libera endereços de memoria alocados para a LDE
- * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
- * \return Retorna um ponteiro para a lista com todos os laços destruidos e os elementos liberados da memória
-*/
 PtNo_O* destroyList(PtNo_O *ptNo){
     if (ptNo != NULL)             // Verifica se a lista é nula para evitar erros
     {

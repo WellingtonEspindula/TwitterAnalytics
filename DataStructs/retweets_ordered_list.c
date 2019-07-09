@@ -1,19 +1,5 @@
-#ifndef BASE_LIBS_H
-#define BASE_LIBS_H
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-#include <strings.h>
-#endif
-
-
 #include "retweets_ordered_list.h"
 
-/** \brief Metodo que inicializa a lista alocando endereço de memória
- * \param *ptLista - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
-*/
 PtNo_R* initializeRetweetsList(PtNo_R *ptNo){
   ptNo = (PtNo_R *) malloc(sizeof(PtNo_R));
   return ptNo;
@@ -83,7 +69,6 @@ PtNo_R* insertRetweetsList(PtNo_R *ptNo, char *content, int rts){
     return ptNo;
 }
 
-
 PtNo_R* sumRetweetsByContent(PtNo_R *ptNo, char *content, int rts){
     PtNo_R *Pt = selectRetweetsList(ptNo, content);  //variavel auxiliar.
     PtNo_R *aux = NULL;
@@ -119,17 +104,11 @@ PtNo_R* sumRetweetsByContent(PtNo_R *ptNo, char *content, int rts){
     return ptNo;
 }
 
-
 PtNo_R* removeRetweetsList(PtNo_R *ptNo, char *hashtag){
   /* TODO */
   return NULL;
 }
 
-
-/** \brief Método que destroi a lista e libera endereços de memoria alocados para a LDE
- * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
- * \return Retorna um ponteiro para a lista com todos os laços destruidos e os elementos liberados da memória
-*/
 PtNo_R* destroyRetweetsList(PtNo_R *ptNo){
     if (ptNo != NULL)             // Verifica se a lista é nula para evitar erros
     {
