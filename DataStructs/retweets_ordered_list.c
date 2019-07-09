@@ -108,25 +108,20 @@ PtNo_R* sumRetweetsByContent(PtNo_R *ptNo, char *content, int rts){
     return ptNo;
 }
 
-PtNo_R* removeRetweetsList(PtNo_R *ptNo, char *hashtag){
-  /* TODO */
-  return NULL;
-}
-
 PtNo_R* destroyRetweetsList(PtNo_R *ptNo){
     if (ptNo != NULL)             // Verifica se a lista é nula para evitar erros
     {
-        PtNo_R *aux1 = ptNo;   // auxiliar que recebe a primeira posição da lista
-        PtNo_R *aux2;
+        PtNo_R *aux = ptNo;         // auxiliar que percorre a lista
 
-        while (aux1 != NULL);        // enquanto não chegar ao fim da lista
+        while (ptNo != NULL)       // enquanto não chegar ao fim da lista
         {
-            aux2 = aux1;            // utiliza 2 auxiliares para guardar a informação da próxima posição e da posição atual da lista
-            aux1 = aux1->next;
-            free(aux2);             // e liberar a memória da posição atual
+            aux = ptNo;            // utiliza 2 auxiliares para guardar a informação da próxima posição e da posição atual da lista
+            ptNo = ptNo->next;
+            free(aux);             // e liberar a memória da posição atual
         }
     }
 
+    free(ptNo);
     return NULL;                    // retorna a lista como nula
 }
 

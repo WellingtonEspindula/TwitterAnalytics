@@ -108,22 +108,17 @@ PtNo_O* occurrence(PtNo_O *ptNo, char *content)
     return ptNo;
 }
 
-PtNo_O* removeList(PtNo_O *ptNo, char *hashtag){
-  /* TODO */
-  return NULL;
-}
 
 PtNo_O* destroyList(PtNo_O *ptNo){
     if (ptNo != NULL)             // Verifica se a lista é nula para evitar erros
     {
-        PtNo_O *aux1 = ptNo;   // auxiliar que recebe a primeira posição da lista
-        PtNo_O *aux2;
+        PtNo_O *aux = ptNo;         // auxiliar que percorre a lista
 
-        while (aux1 != NULL);        // enquanto não chegar ao fim da lista
+        while (ptNo != NULL)        // enquanto não chegar ao fim da lista
         {
-            aux2 = aux1;            // utiliza 2 auxiliares para guardar a informação da próxima posição e da posição atual da lista
-            aux1 = aux1->next;
-            free(aux2);             // e liberar a memória da posição atual
+            aux = ptNo;            // utiliza 2 auxiliares para guardar a informação da próxima posição e da posição atual da lista
+            ptNo = ptNo->next;
+            free(aux);             // e liberar a memória da posição atual
         }
     }
 

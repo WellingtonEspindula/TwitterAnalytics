@@ -105,6 +105,16 @@ int main(int argc, char ** argv){
         printf("A escrita do arquivo de saida levou %f segundos\n", writingTime);
 
 
+        // Destroi listas
+        hashtagTopList = destroyList(hashtagTopList);
+        ativosTopList = destroyList(ativosTopList);
+        retweetsTopList = destroyRetweetsList(retweetsTopList);
+        mentionTopList = destroyList(mentionTopList);
+        influencerTopList = destroyRetweetsList(influencerTopList);
+        mostEngagedTopList = destroyEngagementList(mostEngagedTopList);
+        relatedHashtags = destroyList(relatedHashtags);
+
+        // Fecha arquivos
         fclose(operations);
         fclose(entry);
         fclose(output);

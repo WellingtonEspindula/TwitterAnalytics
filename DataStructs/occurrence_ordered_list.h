@@ -60,13 +60,6 @@ PtNo_O* selectList(PtNo_O *ptNo, char *content);
 */
 PtNo_O* insertList(PtNo_O *ptNo, char *content);
 
-/** \brief Remove um conteudo da lista
- * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
- * \param *content - conteudo que sera removido da lista
- * \return Retorna lista com o elemento removido
- */
-PtNo_O* removeList(PtNo_O *ptNo, char *content);
-
 /** \brief Método que destroi a lista e libera endereços de memoria alocados para a LDE
  * \param *ptNo - Ponteiro para a primeira posicao da Lista Duplamente Encadeada
  * \return Retorna um ponteiro para a lista com todos os laços destruidos e os elementos liberados da memória

@@ -142,15 +142,21 @@ PtNo_E* mentioned(PtNo_E *ptNo, char *content){
 }
 
 
-PtNo_E* removeEngagementList(PtNo_E *ptNo, char *content){
-  /* TODO */
-  return NULL;
-}
-
-
 PtNo_E* destroyEngagementList(PtNo_E *ptNo){
-    /* TODO */
-    return NULL;
+    if (ptNo != NULL)             // Verifica se a lista é nula para evitar erros
+    {
+        PtNo_E *aux = ptNo;         // auxiliar que percorre a lista
+
+        while (ptNo != NULL)        // enquanto não chegar ao fim da lista
+        {
+            aux = ptNo;            // utiliza 2 auxiliares para guardar a informação da próxima posição e da posição atual da lista
+            ptNo = ptNo->next;
+            free(aux);             // e liberar a memória da posição atual
+        }
+    }
+
+    free(ptNo);
+    return NULL;                    // retorna a lista como nula
 }
 
 
